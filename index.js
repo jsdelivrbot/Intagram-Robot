@@ -122,7 +122,7 @@ express()
      }
     yield nightmare.end()
     }
-  
+  res.redirect('/');
   //console.log(specificAccounts);
    //res.end(JSON.stringify(specificAccounts));
 })

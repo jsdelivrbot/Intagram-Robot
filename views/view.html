@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+     <style type="text/css">
+     		body {
+  			padding: 50px;
+  			font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+			}
+            .formId{
+                width: 700px;
+                height: 500px;
+                border: 1px solid #333;
+                margin: 150px auto;
+                background-color: #FFFFFF;
+                padding-top: 30px;
+                padding-left:150px;
+            }
+            .formReg{
+                width: 500px;
+                height: 450px;
+                border: 0px solid #333;
+            }
+            h3{
+                color: #0000FF;
+                font-size: 20px;
+            }
+            h3 span{
+                color: #000000;
+                font-size:16px;
+            }
+            tr{
+                height: 35px;
+            }
+        </style>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    </head>
+    <body>
+          <div class="formId">
+          <div class="formReg">
+         <h3> &emsp;&emsp;&emsp;&emsp;Instagram robot <span> Automatically follow and like</span></h3>
+        <form name="myForm" action="http://127.0.0.1:5000/process_post" method="post">
+            <table width="500px">
+            <tr>
+              <td align="right">user_id:</td>
+              <td colspan="2"><input type="text" name="user_id" placeholder="instagram username"/></td>
+            </tr>
+			<tr>
+              <td align="right">password:</td>
+              <td colspan="2"><input type="text" name="password" placeholder="instagram password"></td>
+            </tr>
+            <tr>
+             <td align="right"><input type="radio" name="select" value="random_follow" >random users follow by tags</td>
+             <td colspan="3"><input type="radio" name="select" value="specific_follow" >specific users follow by accounts</td>
+            </tr>
+            <tr>
+              <td align="right">tags:</td>
+              <td colspan="2"><input type="text" name="tags"  placeholder="split tags by comma"/></td>
+            </tr>
+            <tr>
+              <td align="right">specific accounts: </td>
+              <td colspan="2"><input type="text" name="accounts" placeholder="split accounts by comma"></td>
+            </tr>
+            <tr>
+              <td colspan="3"align="center"> &emsp;&emsp;<input type="submit" value="submit"></td>
+            </tr>
+
+
+            </table>
+        </form>
+        </div>
+        </div>
+    </body>
+</html>

@@ -14,7 +14,8 @@
     "ejs": "^2.5.6",
     "express": "^4.15.2",
     "nightmare": "^3.0.1",
-    "body-parser":"1.18.3"
+    "body-parser":"1.18.3",
+    "vo": "^4.0.2"
   },
   "devDependencies": {
     "request": "^2.81.0",

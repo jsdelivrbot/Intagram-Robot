@@ -13,7 +13,7 @@ express()
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'html')
   .get('/', (req, res) => res.render('view'))
-  .post('/show', urlencodedParser, function (req, res) {
+  .post('/', urlencodedParser, function (req, res) {
 
    var option=req.body.select;
    var username=req.body.user_id;

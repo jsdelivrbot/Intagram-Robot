@@ -92,31 +92,34 @@ express()
      
    var isFollowed;
     if(specificFollowAndLikes){
-      for(let i = 0; i < specificAccounts.length; i++){
-        let isFollowed = yield nightmare
-          .goto('https://www.instagram.com/explore/')
-          .type('input.XTCLo', specificAccounts[i])
-          .wait(3000)
-          .click('.yCE8d')
-          .wait(1000)
-          .evaluate(()=>{
-            return document.getElementsByClassName('_5f5mN    -fzfL     _6VtSN     yZn4P   ').length;
-          });
+     for(let i = 0; i < specificAccounts.length; i++){
 
-          if (isFollowed==0){
-            yield nightmare
-            .click('button._5f5mN')
-            .wait(3000)
-            .click('.v1Nh3 > a')
-            .wait(3000)
-            .click('.coreSpriteHeartOpen')
-            .wait(3000)
-          } else {
-            console.log("Already Followed!!!!!!!!!!!!!")
-            //TODO how to like random pictures?
-          }
-        }
-      }
+       let returnObj = yield nightmare
+         .goto('https://www.instagram.com/explore/')
+         .type('input.XTCLo', specificAccounts[i])
+         .wait(3000)
+         .click('.yCE8d')
+         .wait(3000)
+         .evaluate(()=>{
+           let first_post = document.querySelector('article > div > div > div > div > a');
+           let first_post_href =  first_post ? first_post.href : null;
+           return { isFollowed : document.getElementsByClassName('_5f5mN    -fzfL     _6VtSN     yZn4P   ').length, first_post_href : first_post_href};
+         });
+         console.log(returnObj);
+         if (!returnObj.isFollowed && returnObj.first_post_href){
+           yield nightmare
+           .goto(returnObj.first_post_href)
+           .wait(3000)
+           .click('button')
+           .wait(3000)
+           .click('.coreSpriteHeartOpen')
+           .wait(3000)
+         } else {
+           console.log("Already Followed!!!!!!!!!!!!!")
+           //TODO how to like random pictures?
+         }
+       }
+     }
     yield nightmare.end()
     }
   

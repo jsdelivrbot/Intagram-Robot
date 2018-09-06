@@ -89,26 +89,37 @@ express()
     }
 
     // Follows Specific Ppl and Likes Their First Photo
-
+     
+   var isFollowed;
     if(specificFollowAndLikes){
       for(let i = 0; i < specificAccounts.length; i++){
-        yield nightmare
+        let isFollowed = yield nightmare
           .goto('https://www.instagram.com/explore/')
           .type('input.XTCLo', specificAccounts[i])
           .wait(3000)
           .click('.yCE8d')
-          .wait(10000)
-          .click('button._5f5mN')
-          .wait(3000)
-          .click('.v1Nh3 > a')
-          .wait(3000)
-          .click('.coreSpriteHeartOpen')
-          .wait(3000)
-      }
-    }
+          .wait(1000)
+          .evaluate(()=>{
+            return document.getElementsByClassName('_5f5mN    -fzfL     _6VtSN     yZn4P   ').length;
+          });
 
+          if (isFollowed==0){
+            yield nightmare
+            .click('button._5f5mN')
+            .wait(3000)
+            .click('.v1Nh3 > a')
+            .wait(3000)
+            .click('.coreSpriteHeartOpen')
+            .wait(3000)
+          } else {
+            console.log("Already Followed!!!!!!!!!!!!!")
+            //TODO how to like random pictures?
+          }
+        }
+      }
     yield nightmare.end()
-   }
+    }
+  
   //console.log(specificAccounts);
    //res.end(JSON.stringify(specificAccounts));
 })

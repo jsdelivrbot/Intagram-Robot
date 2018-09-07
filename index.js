@@ -90,38 +90,60 @@ express()
 
     // Follows Specific Ppl and Likes Their First Photo
      
-   var isFollowed;
+    var isFollowed;
+  
     if(specificFollowAndLikes){
-     for(let i = 0; i < specificAccounts.length; i++){
+      for(let i = 0; i < specificAccounts.length; i++){
 
-       let returnObj = yield nightmare
-         .goto('https://www.instagram.com/explore/')
-         .type('input.XTCLo', specificAccounts[i])
-         .wait(3000)
-         .click('.yCE8d')
-         .wait(3000)
-         .evaluate(()=>{
-           let first_post = document.querySelector('article > div > div > div > div > a');
-           let first_post_href =  first_post ? first_post.href : null;
-           return { isFollowed : document.getElementsByClassName('_5f5mN    -fzfL     _6VtSN     yZn4P   ').length, first_post_href : first_post_href};
-         });
-         console.log(returnObj);
-         if (!returnObj.isFollowed && returnObj.first_post_href){
-           yield nightmare
-           .goto(returnObj.first_post_href)
-           .wait(3000)
-           .click('button')
-           .wait(3000)
-           .click('.coreSpriteHeartOpen')
-           .wait(3000)
-         } else {
-           console.log("Already Followed!!!!!!!!!!!!!")
-           //TODO how to like random pictures?
-         }
-       }
-     }
-    yield nightmare.end()
+      let returnObj = yield nightmare
+        .goto('https://www.instagram.com/explore/')
+        .type('input.XTCLo', specificAccounts[i])
+        .click('input.XTCLo')
+        .wait(10000)
+        .click('.yCE8d')
+        .wait(3000)
+        .evaluate(()=>{
+          let first_post = document.querySelector('article > div > div > div > div > a');
+          let first_post_href =  first_post ? first_post.href : null;
+          return { isFollowed : document.getElementsByClassName('_5f5mN    -fzfL     _6VtSN     yZn4P   ').length, first_post_href : first_post_href};
+        });
+        console.log(returnObj);
+        console.log(returnObj.first_post_href);
+        if (!returnObj.isFollowed && returnObj.first_post_href){
+          yield nightmare
+          .goto(returnObj.first_post_href)
+          .wait(3000)
+          .click('button')
+          .wait(3000)
+          .click('.coreSpriteHeartOpen')
+          .wait(3000);
+        } else {
+          //Update Like 4 random picture from this account
+          let randomPicturesFromAccount = yield nightmare
+          .evaluate(()=>{
+            const arr = [];
+            const query = document.querySelectorAll('.v1Nh3 > a');
+            for(let i = 0; i < query.length; i++){
+              arr.push(query[i].href);
+            }
+            return arr;
+          });
+          console.log(randomPicturesFromAccount);
+
+          for (let j = 0; j< 4; j++){
+            var rand = randomPicturesFromAccount[Math.floor(Math.random() * randomPicturesFromAccount.length)];
+            yield nightmare
+            .goto(rand)
+            .wait(3000)
+            .click('.coreSpriteHeartOpen')
+            .wait(3000);
+            delete rand;
+          }
+        }
+      }
     }
+yield nightmare.end()
+}
   res.redirect('/');
   //console.log(specificAccounts);
    //res.end(JSON.stringify(specificAccounts));

@@ -35,7 +35,7 @@ express()
 
    function *run() {
     const nightmare = Nightmare({
-      show: false
+      show: true
     });
 
     // Logs In

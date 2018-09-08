@@ -9,7 +9,7 @@ A barebones Node.js app using [Express 4](http://expressjs.com/).
 Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
 
 ```sh
-$ git clone git@github.com:w2567556/new.git # or clone your own fork
+$ git clone https://github.com/w2567556/new.git
 $ cd new
 $ npm install
 $ npm start

@@ -35,10 +35,7 @@ express()
 
    function *run() {
     const nightmare = Nightmare({
-      openDevTools: {
-        mode: 'detach'
-      },
-      show: true
+      show: false
     });
 
     // Logs In
